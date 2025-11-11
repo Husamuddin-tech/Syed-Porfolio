@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import React, { useMemo, useRef, useState, useCallback, FC } from 'react';
+import { useMemo, useRef, useState, useCallback, FC } from 'react';
 import * as THREE from 'three';
 
 export const CanvasRevealEffect = ({
@@ -291,7 +291,7 @@ const ShaderMaterial: FC<ShaderProps> = ({ source, uniforms, maxFps = 60 }) => {
         blendSrc: THREE.SrcAlphaFactor,
         blendDst: THREE.OneFactor,
       }),
-    [getUniforms, size, source]
+    [getUniforms, source]
   );
 
   return (

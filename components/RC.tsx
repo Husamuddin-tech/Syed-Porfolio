@@ -54,7 +54,7 @@ const RC = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="w-full max-w-3xl backdrop-blur-xl bg-white/70 dark:bg-[#2a211b]/90 border border-[#e5d6c3]/60 dark:border-[#3d3a36]/60 rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-500 hover:shadow-[0_0_45px_rgba(210,180,140,0.4)] dark:hover:shadow-[0_0_35px_rgba(255,235,205,0.15)] hover:-translate-y-1"
+        className="w-full max-w-3xl backdrop-blur-xl bg-white/70 dark:bg-[#2a211b]/90 border border-[#e5d6c3]/60 dark:border-[#3d3a36]/60 rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-500 hover:shadow-[0_0_45px_rgba(210,180,140,0.4)] dark:hover:shadow-[0_0_35px_rgba(255,235,205,0.15)] hover:-translate-y-1.5"
       >
         <div className="overflow-hidden rounded-2xl border border-[#e8dcc9]/50 dark:border-[#3b312a]/50">
           <PDFViewer fileUrl="/assets/RC/Syed-resume.pdf" />
@@ -79,6 +79,7 @@ const RC = () => {
 
         {/* Stateful Animated Button */}
         <Button
+          aria-label="Download Syed Husamuddin Resume PDF"
           onClick={handleDownload}
           className="relative flex flex-col items-center justify-center px-10 py-4 rounded-3xl bg-linear-to-r from-[#d2b48c] to-[#b8976b] dark:from-[#e3c59a] dark:to-[#c7a66a] text-white dark:text-[#1e130b] font-semibold text-base shadow-lg hover:scale-105 active:scale-95 hover:shadow-[0_0_35px_rgba(210,180,140,0.5)] dark:hover:shadow-[0_0_25px_rgba(255,235,205,0.2)] transition-all duration-300 overflow-hidden group"
         >

@@ -1,7 +1,13 @@
 'use client';
 
 import { Document, Page, pdfjs } from 'react-pdf';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useMemo,
+} from 'react';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import {
@@ -16,6 +22,8 @@ import {
 
 // ✅ Use local worker file
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdfjs/pdf.worker.min.mjs';
+console.log('Worker src:', pdfjs.GlobalWorkerOptions.workerSrc);
+
 
 interface PDFViewerProps {
   fileUrl: string;
@@ -26,11 +34,21 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.2);
   const [fitToWidth, setFitToWidth] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // ✅ Memoize PDF file to avoid re-parsing
+  const memoizedFile = useMemo(() => ({ url: fileUrl }), [fileUrl]);
 
   // ✅ Handle PDF load
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
+  };
+
+  // ✅ Handle PDF load errors
+  const onDocumentLoadError = (err: Error) => {
+    if (err?.message?.includes('AbortException')) return; // ignore benign warning
+    console.error('PDF load error:', err);
   };
 
   // ✅ Pagination
@@ -72,6 +90,13 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
     }
   }, []);
 
+  // ✅ Track fullscreen changes for icon state
+  useEffect(() => {
+    const handleFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
   // ✅ Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -107,7 +132,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
   return (
     <div
       ref={containerRef}
-      className="w-full rounded-xl overflow-hidden shadow-2xl transition-all duration-300 bg-linear-to-br from-[#fdf9f3] to-[#f3eadc] dark:from-[#241b15] dark:to-[#2f261f]"
+      className="w-[90%] mx-auto max-w-[950px] rounded-xl overflow-hidden shadow-2xl transition-all duration-300 bg-linear-to-br from-[#fdf9f3] to-[#f3eadc] dark:from-[#241b15] dark:to-[#2f261f]"
     >
       {/* Toolbar */}
       <div className="flex justify-between items-center bg-[#f0e6da] dark:bg-[#3a2f27] px-5 py-3 border-b border-[#d8cbb6] dark:border-[#4b3f35]">
@@ -147,7 +172,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
             className="p-2 rounded-lg hover:bg-[#e0d2c2] dark:hover:bg-[#4b3f35] transition"
             title="Toggle Fullscreen (F)"
           >
-            {document.fullscreenElement ? (
+            {isFullscreen ? (
               <Minimize2 className="w-5 h-5 text-[#5a4634] dark:text-[#e5d6b8]" />
             ) : (
               <Maximize2 className="w-5 h-5 text-[#5a4634] dark:text-[#e5d6b8]" />
@@ -161,12 +186,16 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ fileUrl }) => {
         id="pdf-container"
         className="flex justify-center overflow-y-auto max-h-[80vh] bg-white dark:bg-[#2a211b] transition-all duration-300"
       >
-        <Document file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document
+          file={memoizedFile}
+          onLoadSuccess={onDocumentLoadSuccess}
+          onLoadError={onDocumentLoadError}
+        >
           <Page
             pageNumber={pageNumber}
             scale={scale}
-            renderTextLayer
-            renderAnnotationLayer
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
           />
         </Document>
       </div>

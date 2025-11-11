@@ -73,7 +73,7 @@ export default function SkillSet() {
           label: 'Interpersonal',
           items: [
             { name: 'Communication', icon: 'mdi:account-voice' },
-            { name: 'Team Collaboration', icon: 'mdi:account-group' },
+            { name: 'Team Work', icon: 'mdi:account-group' },
             { name: 'Leadership', icon: 'mdi:crown' },
           ],
         },
@@ -173,7 +173,6 @@ function SkillCard({
     'bg-[#F2EFE9] dark:bg-[#201F1E]',
     'bg-[#E9E6DF] dark:bg-[#222120]',
   ];
-
   const cardColor = neutralPalette[colorIndex % neutralPalette.length];
 
   return (
@@ -182,7 +181,7 @@ function SkillCard({
       onMouseLeave={() => setHovered(false)}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.4 }}
-      className={`group relative border border-amber-900/10 dark:border-amber-100/10 rounded-3xl overflow-hidden w-full max-w-xs sm:max-w-sm h-[560px] sm:h-[600px] flex flex-col items-center justify-center p-6 shadow-[0_0_15px_rgba(180,150,100,0.15)] hover:shadow-[0_0_30px_rgba(240,200,130,0.4)] transition-all duration-500 ${cardColor}`}
+      className={`relative border border-amber-900/10 dark:border-amber-100/10 rounded-3xl overflow-hidden w-full max-w-md sm:max-w-lg h-[520px] sm:h-[560px] flex flex-col items-center justify-center p-6 shadow-[0_0_25px_rgba(180,150,100,0.25)] hover:shadow-[0_0_45px_rgba(240,200,130,0.55)] transition-all duration-500 ${cardColor}`}
     >
       <AnimatePresence>
         {hovered && (
@@ -192,7 +191,10 @@ function SkillCard({
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-linear-to-b from-[#F5E7C8]/60 to-[#EADDC5]/50 dark:from-[#141312]/80 dark:to-[#1A1917]/80"
           >
-            <CanvasRevealEffect animationSpeed={3.5} />
+            {/* Wider Canvas Effect */}
+            <div className="w-[130%] h-full -ml-[15%]">
+              <CanvasRevealEffect animationSpeed={3.5} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -202,30 +204,31 @@ function SkillCard({
           <motion.div
             animate={{
               y: hovered ? [-2, 2, -2] : 0,
-              rotate: hovered ? [0, 3, -3, 0] : 0,
+              rotate: hovered ? [0, 2, -2, 0] : 0,
             }}
             transition={{
               repeat: hovered ? Infinity : 0,
-              duration: 2,
+              duration: 2.2,
               ease: 'easeInOut',
             }}
           >
             <Icon
               icon={icon}
-              className="text-4xl sm:text-5xl text-amber-700 dark:text-amber-300 drop-shadow-md mb-2"
+              className="text-4xl sm:text-5xl text-amber-700 dark:text-amber-300 drop-shadow-md mb-3"
             />
           </motion.div>
         )}
+
         <motion.h4
-          animate={{ opacity: hovered ? 0 : 1, y: hovered ? 10 : 0 }}
-          transition={{ duration: 0.5 }}
+          animate={{ opacity: hovered ? 0 : 1, y: hovered ? 8 : 0 }}
+          transition={{ duration: 0.4 }}
           className="font-semibold text-2xl sm:text-3xl text-amber-900 dark:text-amber-100 mb-4"
         >
           {title}
         </motion.h4>
 
         <motion.div
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
+          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 8 }}
           transition={{ duration: 0.6 }}
           className="overflow-y-auto no-scrollbar h-full"
         >
@@ -235,3 +238,4 @@ function SkillCard({
     </motion.div>
   );
 }
+
