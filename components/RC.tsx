@@ -25,7 +25,7 @@ const RC = () => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const link = document.createElement('a');
-    link.href = '/assets/RC/Syed-resume.pdf';
+    link.href = '/Syed-resume.pdf';
     link.download = 'Syed_Husamuddin_Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -57,7 +57,7 @@ const RC = () => {
         className="w-full max-w-3xl backdrop-blur-xl bg-white/70 dark:bg-[#2a211b]/90 border border-[#e5d6c3]/60 dark:border-[#3d3a36]/60 rounded-3xl shadow-[0_10px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-500 hover:shadow-[0_0_45px_rgba(210,180,140,0.4)] dark:hover:shadow-[0_0_35px_rgba(255,235,205,0.15)] hover:-translate-y-1.5"
       >
         <div className="overflow-hidden rounded-2xl border border-[#e8dcc9]/50 dark:border-[#3b312a]/50">
-          <PDFViewer fileUrl="/assets/RC/Syed-resume.pdf" />
+          <PDFViewer fileUrl="/Syed-resume.pdf" />
         </div>
 
         <div className="text-center py-4 text-sm text-neutral-600 dark:text-neutral-400">
