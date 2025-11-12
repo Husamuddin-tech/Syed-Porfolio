@@ -125,12 +125,12 @@ export function Dock() {
         </motion.div>
       </motion.div>
 
-      {/* 📱 Mobile Dock - Right Center */}
+      {/* 📱 Mobile Dock */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className="flex md:hidden fixed right-3 sm:right-5 top-1/2 -translate-y-1/2 z-50"
+        className="flex md:hidden fixed left-3 sm:left-5 top-1/2 -translate-y-1/2 z-50"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}

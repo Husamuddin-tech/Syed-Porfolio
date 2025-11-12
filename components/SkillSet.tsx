@@ -72,9 +72,9 @@ export default function SkillSet() {
         {
           label: 'Interpersonal',
           items: [
-            { name: 'Communication', icon: 'mdi:account-voice' },
-            { name: 'Team Work', icon: 'mdi:account-group' },
             { name: 'Leadership', icon: 'mdi:crown' },
+            { name: 'Team Work', icon: 'mdi:account-group' },
+            { name: 'Interactive', icon: 'mdi:account-voice' },
           ],
         },
         {
