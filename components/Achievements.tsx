@@ -39,6 +39,11 @@ const Achievements = () => {
   // 🏫 College Certificates (grid)
   const collegeCerts = [
     {
+      title: 'HiveMind AI Research Publication',
+      image:
+        'https://drive.google.com/uc?export=view&id=14-lb2bEAVDoiPiJo7jQ3s2ih_YgQQJ5F',
+    },
+    {
       title: 'Research Paper Publication',
       image:
         'https://drive.google.com/uc?export=view&id=19lP3SutcAZhzFfnJ2z6QLgxKo3S8snqG',

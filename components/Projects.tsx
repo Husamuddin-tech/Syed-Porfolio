@@ -8,6 +8,14 @@ import { IconBrandGithub } from '@tabler/icons-react';
 
 const projects = [
   {
+    title: 'HiveMind AI: Scalable Multi-Agent RL Framework',
+    description:
+      'Scalable multi-agent RL system using PPO (CTDE), achieving 90% success vs. SAC (~16%), with real-time monitoring via FastAPI + React.',
+    image: '/assets/projects/hivemind-ai.jpg',
+    github: 'https://github.com/Husamuddin-tech/HIVEMIND-AI',
+    // no live → triggers "In Progress"
+  },
+  {
     title: 'AI Wiki Quiz Generator',
     description:
       'Full-stack app that transforms Wikipedia articles into interactive quizzes using AI.',
@@ -112,13 +120,15 @@ const Projects = () => {
           >
             <CardContainer className="inter-var w-full">
               <CardBody className="relative group/card bg-[#f9f6f1] dark:bg-[#1c1b19] border border-[#e0d6c3]/60 dark:border-[#3d3a36]/60 rounded-2xl p-6 shadow-[0_8px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_0_45px_rgba(210,180,140,0.3)] dark:hover:shadow-[0_0_35px_rgba(255,235,205,0.15)] transition-all duration-500 hover:-translate-y-1 hover:scale-[1.03] ease-out">
-                {/* Title */}
-                <CardItem
-                  translateZ="60"
-                  className="text-xl md:text-2xl font-bold text-neutral-800 dark:text-[#f5f3ef] mb-2"
-                >
-                  {project.title}
-                </CardItem>
+                {/* Title + Badge */}
+                <div className="flex items-center justify-between">
+                  <CardItem
+                    translateZ="60"
+                    className="text-xl md:text-2xl font-bold text-neutral-800 dark:text-[#f5f3ef] mb-2"
+                  >
+                    {project.title}
+                  </CardItem>
+                </div>
 
                 {/* Description */}
                 <CardItem
@@ -164,18 +174,28 @@ const Projects = () => {
                     <span>Code</span>
                   </CardItem>
 
-                  {/* Visit */}
-                  <CardItem
-                    translateZ={30}
-                    translateX={20}
-                    as="a"
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-2 rounded-xl bg-linear-to-r from-[#d2b48c] to-[#c2a676] dark:from-[#e3c59a] dark:to-[#d2b48c] text-white dark:text-black text-sm font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
-                  >
-                    Visit →
-                  </CardItem>
+                  {/* Visit / Coming Soon */}
+                  {project.live ? (
+                    <CardItem
+                      translateZ={30}
+                      translateX={20}
+                      as="a"
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-5 py-2 rounded-xl bg-linear-to-r from-[#d2b48c] to-[#c2a676] dark:from-[#e3c59a] dark:to-[#d2b48c] text-white dark:text-black text-sm font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                    >
+                      Visit →
+                    </CardItem>
+                  ) : (
+                    <CardItem
+                      translateZ={30}
+                      translateX={20}
+                      className="px-5 py-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm font-semibold cursor-not-allowed"
+                    >
+                      Coming Soon
+                    </CardItem>
+                  )}
                 </div>
               </CardBody>
             </CardContainer>
@@ -212,8 +232,7 @@ const Projects = () => {
             />
           </LinkPreview>
         </motion.span>{' '}
-        <span className="font-medium">profile</span> for more repositories and
-        open-source work.
+        <span className="font-medium">profile</span>.
       </motion.div>
     </section>
   );
